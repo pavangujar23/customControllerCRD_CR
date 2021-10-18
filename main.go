@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	v1aplha1 "github.com/pavangujar23/kluster/pkg/apis/pavangujar.dev/v1alpha1"
+	v1aplha1 "customControllerCRD_CR/pkg/apis/pavangujar.dev/v1alpha1"
 )
 
 func main() {

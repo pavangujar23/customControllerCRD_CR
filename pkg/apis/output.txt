@@ -1,0 +1,1 @@
+-bash: ./code-generator/generate-groups.sh: No such file or directory
