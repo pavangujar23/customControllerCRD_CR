@@ -50,7 +50,8 @@ func main() {
 		log.Printf("listing Klusters %s\n", err.Error())
 	}
 
-	fmt.Printf("length of klusters is %d\n", len(klusters.Items))
+	fmt.Printf("length of klusters is %d and name is %s\n", len(klusters.Items), klusters.Items[0].Name)
+
 	// client, err := kubernetes.NewForConfig(config)
 	// if err != nil {
 	// 	log.Printf("getting std client %s\n", err.Error())
