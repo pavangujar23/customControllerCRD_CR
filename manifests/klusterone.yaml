@@ -1,6 +1,6 @@
 apiVersion: pavangujar.dev/v1alpha1
 kind: Kluster
-meatdata: 
+metadata: 
   name: kluster-0
 spec:
   name: kluster-0
