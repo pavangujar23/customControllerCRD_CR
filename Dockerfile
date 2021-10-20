@@ -1,5 +1,5 @@
 FROM alpine
 
-COPY kluster /usr/local/bin
+COPY customControllerCRD_CR /usr/local/bin
 
 ENTRYPOINT [ "customControllerCRD_CR" ]
