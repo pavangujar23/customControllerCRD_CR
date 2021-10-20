@@ -28,6 +28,7 @@ func main() {
 	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 	if err != nil {
 		log.Printf("Building config from flags failed, %s, trying to build inclusterconfig", err.Error())
+		//Code to run Kluster inside POD
 		config, err = rest.InClusterConfig()
 		if err != nil {
 			log.Printf("error %s building inclusterconfig", err.Error())

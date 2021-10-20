@@ -1,4 +1,4 @@
-FROM alphine
+FROM alpine
 
 COPY kluster /usr/local/bin
 
