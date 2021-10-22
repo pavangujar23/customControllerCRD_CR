@@ -52,10 +52,10 @@ spec:
                 type: string
             type: object
         type: object
-        subresources:
-          status: {}
     served: true
     storage: true
+    subresources:
+          status: {}
 status:
   acceptedNames:
     kind: ""
