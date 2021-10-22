@@ -4,5 +4,4 @@ metadata:
   name: kluster-0
 spec:
   name: kluster-0
-  region: "arsikere-south-1"
-  version: "12345"
+  version: "123"
