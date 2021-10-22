@@ -1,11 +1,15 @@
 package controller
 
 import (
+	"context"
+	"customControllerCRD_CR/pkg/apis/pavangujar.dev/v1alpha1"
 	klientset "customControllerCRD_CR/pkg/client/clientset/versioned"
 	kinf "customControllerCRD_CR/pkg/client/informers/externalversions/pavangujar.dev/v1alpha1"
 	klister "customControllerCRD_CR/pkg/client/listers/pavangujar.dev/v1alpha1"
 	"log"
 	"time"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/tools/cache"
@@ -82,6 +86,19 @@ func (c *Controller) processNextItem() bool {
 	}
 	log.Printf("kluster spec that we have is %+v\n", kluster.Spec)
 	return true
+}
+
+func (c *Controller) updateStatus(id, progress string, kluster *v1alpha1.Kluster) error {
+	// get the latest version of kluster
+	k, err := c.klient.PavangujarV1alpha1().Klusters(kluster.Namespace).Get(context.Background(), kluster.Name, metav1.GetOptions{})
+	if err != nil {
+		return err
+	}
+
+	k.Status.KlusterID = id
+	k.Status.Progress = progress
+	_, err = c.klient.PavangujarV1alpha1().Klusters(kluster.Namespace).UpdateStatus(context.Background(), k, metav1.UpdateOptions{})
+	return err
 }
 
 func (c *Controller) handleAdd(obj interface{}) {
