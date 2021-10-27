@@ -47,6 +47,9 @@ func main() {
 	// }
 	// fmt.Printf("length of klusters is %d and name is %s\n", len(klusters.Items), klusters.Items[0].Name)
 
+	// klientset.CoreV1().Pods("").Get()
+	//Watch() method of POD interface
+
 	infoFactory := kInfFac.NewSharedInformerFactory(klientset, 20*time.Minute)
 	ch := make(chan struct{})
 	c := controller.NewController(klientset, infoFactory.Pavangujar().V1alpha1().Klusters())
@@ -57,6 +60,31 @@ func main() {
 	}
 
 }
+
+// func toIntializeInformer() {
+// infoFactory := kInfFac.NewSharedInformerFactory(klientset, 20*time.Minute) // HElps in resync
+// //it will get resources from all name spaces
+// kInfFac.NewFilteredSharedInformerFactory(klientset, 20*time.Minute, "default", func (to *metav1.ListOptions) {
+// 	//it will get resources from default name spaces
+// 	//we call define list options as well
+// })
+// podInformer := infoFactory.Pavangujar().V1alpha1().Pods()
+// podInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs) {
+// 	AddEvent:
+// 	UpdateEvent:
+// 	DeleteEvent:
+// }
+// infoFactory.Start(wait.NeverStop)
+// infoFactory.WaitForCacheSync(wait.NeverStop) // it will call the API Server using list() then
+// it will get all the respective data
+// and store in
+//incache memory
+
+//from the above line we get data, Using that lister will get/List the respective data
+// pod, err := podInformer.lister().PushP("default").Get("default") //to get pod from default namespace
+
+// fmt.Printf(pod)
+// }
 
 // specify the global tags forward Api
 

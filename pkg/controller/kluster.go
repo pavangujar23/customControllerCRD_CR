@@ -10,11 +10,15 @@ import (
 	"time"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/klog/v2"
 
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/util/workqueue"
 )
+
+const statemessage = "SUCCEED"
+const statusmessage = "updated successfully"
 
 type Controller struct {
 	// clientset for custom resource kluster
@@ -84,19 +88,25 @@ func (c *Controller) processNextItem() bool {
 		log.Printf("error %s, Getting the kluster resource from lister\n", err.Error())
 		return false
 	}
+
+	err = c.updateStatus(kluster)
+	if err != nil {
+		klog.Fatal(err)
+	}
 	log.Printf("kluster spec that we have is %+v\n", kluster.Spec)
 	return true
 }
 
-func (c *Controller) updateStatus(id, progress string, kluster *v1alpha1.Kluster) error {
+func (c *Controller) updateStatus(kluster *v1alpha1.Kluster) error {
 	// get the latest version of kluster
 	k, err := c.klient.PavangujarV1alpha1().Klusters(kluster.Namespace).Get(context.Background(), kluster.Name, metav1.GetOptions{})
 	if err != nil {
 		return err
 	}
 
-	k.Status.KlusterID = id
-	k.Status.Progress = progress
+	statusCopy := kluster.DeepCopy()
+	statusCopy.Status.State = statemessage
+	k.Status.Progress = statusmessage
 	_, err = c.klient.PavangujarV1alpha1().Klusters(kluster.Namespace).UpdateStatus(context.Background(), k, metav1.UpdateOptions{})
 	return err
 }
