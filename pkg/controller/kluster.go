@@ -99,15 +99,15 @@ func (c *Controller) processNextItem() bool {
 
 func (c *Controller) updateStatus(kluster *v1alpha1.Kluster) error {
 	// get the latest version of kluster
-	k, err := c.klient.PavangujarV1alpha1().Klusters(kluster.Namespace).Get(context.Background(), kluster.Name, metav1.GetOptions{})
-	if err != nil {
-		return err
-	}
+	// k, err := c.klient.PavangujarV1alpha1().Klusters(kluster.Namespace).Get(context.Background(), kluster.Name, metav1.GetOptions{})
+	// if err != nil {
+	// 	return err
+	// }
 
 	statusCopy := kluster.DeepCopy()
 	statusCopy.Status.State = statemessage
 	statusCopy.Status.Message = statusmessage
-	_, err = c.klient.PavangujarV1alpha1().Klusters(kluster.Namespace).UpdateStatus(context.Background(), k, metav1.UpdateOptions{})
+	_, err := c.klient.PavangujarV1alpha1().Klusters(kluster.Namespace).UpdateStatus(context.Background(), statusCopy, metav1.UpdateOptions{})
 	return err
 }
 
