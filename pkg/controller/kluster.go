@@ -106,7 +106,7 @@ func (c *Controller) updateStatus(kluster *v1alpha1.Kluster) error {
 
 	statusCopy := kluster.DeepCopy()
 	statusCopy.Status.State = statemessage
-	k.Status.Progress = statusmessage
+	statusCopy.Status.Message = statusmessage
 	_, err = c.klient.PavangujarV1alpha1().Klusters(kluster.Namespace).UpdateStatus(context.Background(), k, metav1.UpdateOptions{})
 	return err
 }

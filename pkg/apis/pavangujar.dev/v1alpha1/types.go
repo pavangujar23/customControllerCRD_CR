@@ -18,9 +18,8 @@ type Kluster struct {
 }
 
 type KlusterStatus struct {
-	State      string `json:"state,omitempty"`
-	Progress   string `json:"progress,omitempty"`
-	KubeConfig string `json:"kubeConfig,omitempty"`
+	State   string `json:"state,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
 type KlusterSpec struct {

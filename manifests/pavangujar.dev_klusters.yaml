@@ -53,11 +53,9 @@ spec:
             type: object
           status:
             properties:
-              klusterID:
+              state:
                 type: string
-              kubeConfig:
-                type: string
-              progress:
+              message:
                 type: string
             type: object
         type: object
@@ -84,4 +82,4 @@ status:
   #names:
    # plural: klusters
     #singular: kluster
-    #kind: Klusterk
+    #kind: Kluster
